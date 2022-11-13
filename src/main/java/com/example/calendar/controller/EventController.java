@@ -2,6 +2,7 @@ package com.example.calendar.controller;
 
 import com.example.calendar.model.Event;
 import com.example.calendar.service.EventService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,11 @@ public class EventController {
 
     @GetMapping("/by-day")
     public ResponseEntity<?> getAllByDayAndMonthAndYear(@RequestParam("day") Integer day, @RequestParam("month") Integer month, @RequestParam("year") Integer year){
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(eventService.findByDayAndMonthAndYear(day, month, year), HttpStatus.OK);
     }
 
