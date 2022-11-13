@@ -47,4 +47,7 @@ public class EventService {
 
     }
 
+    public Event findById(Long id) {
+        return eventRepository.findById(id).orElse(null);
+    }
 }

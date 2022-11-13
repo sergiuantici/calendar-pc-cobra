@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+
 @RestController
 @RequestMapping("events")
+@CrossOrigin(origins = "*")
+
 public class EventController {
     @Resource
     private EventService eventService;
@@ -20,7 +23,7 @@ public class EventController {
     }
     @GetMapping("/by-month-year")
     public ResponseEntity<?> getAllByMonthAndYear(@RequestParam("month") Integer month, @RequestParam("year") Integer year){
-       return new ResponseEntity<>(eventService.findByMonthAndYearGroupedByDay(month, year), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.findByMonthAndYearGroupedByDay(month, year), HttpStatus.OK);
     }
 
     @GetMapping("/by-day")
@@ -29,6 +32,11 @@ public class EventController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEvent(@PathVariable("id") Long id){
+        return new ResponseEntity<>(eventService.findById(id), HttpStatus.OK);
+
+    }
     @GetMapping
     public ResponseEntity<?> findAllEvents() {
         return new ResponseEntity<>(eventService.findAll(), HttpStatus.OK);
