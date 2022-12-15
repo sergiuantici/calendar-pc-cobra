@@ -1,6 +1,7 @@
 package com.example.calendar.repository;
 
 import com.example.calendar.model.Event;
+import com.example.calendar.model.User;
 import com.example.calendar.model.dto.EventDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,4 +32,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "order by e.date ")
     List<EventDTO> getEventsByDayAndMonthAndYear(@Param("day") Integer day, @Param("month") Integer month, @Param("year") Integer year);
 
+    boolean existsByIdAndUser(Long id, User user);
 }
