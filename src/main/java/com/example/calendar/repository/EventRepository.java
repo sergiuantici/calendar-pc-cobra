@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,5 +33,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "order by e.date ")
     List<EventDTO> getEventsByDayAndMonthAndYear(@Param("day") Integer day, @Param("month") Integer month, @Param("year") Integer year);
 
+
+
+
     boolean existsByIdAndUser(Long id, User user);
+
+    ArrayList<Event> findByUser(User user);
 }

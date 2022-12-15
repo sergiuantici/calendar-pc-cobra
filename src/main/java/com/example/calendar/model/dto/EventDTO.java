@@ -7,8 +7,45 @@ public class EventDTO {
     private Long id;
     private String name;
     private List<String> notes;
+
     public String getUsername() {
         return username;
+    }
+
+    public EventDTO(Long id, String name, List<String> notes, String startTime, String endTime, String description, String username, LocalDateTime date) {
+        this.id = id;
+        this.name = name;
+        this.notes = notes;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.description = description;
+        this.username = username;
+        this.date = date;
+    }
+
+    public EventDTO() {
+    }
+
+    public EventDTO(Long id, String name, String startTime, String endTime, String description, String username, LocalDateTime date) {
+        this.id = id;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.description = description;
+        this.username = username;
+        this.date = date;
+    }
+
+    private String startTime;
+    private String endTime;
+    private String description;
+    private String username;
+    private LocalDateTime date;
+
+    public EventDTO(Long id, String name, LocalDateTime date) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
     }
 
     public List<String> getNotes() {
@@ -59,17 +96,6 @@ public class EventDTO {
     public EventDTO setDescription(String description) {
         this.description = description;
         return this;
-    }
-
-    private String startTime;
-    private String endTime;
-    private String description;
-    private String username;
-    private LocalDateTime date;
-    public EventDTO(Long id, String name, LocalDateTime date) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
     }
 
     public Long getId() {

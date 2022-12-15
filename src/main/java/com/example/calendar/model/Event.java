@@ -1,5 +1,7 @@
 package com.example.calendar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name="userId", nullable=false)
+    @JsonBackReference
     private User user;
 
     public User getUser() {
@@ -35,11 +38,10 @@ public class Event {
     }
 
     @ElementCollection
-    private List<String> notes = new ArrayList<String>();
+    private List<String> notes = new ArrayList<>();
     public Event() {
 
     }
-
     public String getEndTime() {
         return endTime;
     }

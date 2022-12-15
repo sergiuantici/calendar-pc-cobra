@@ -1,6 +1,9 @@
 package com.example.calendar.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,8 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user",fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Event> events;
 
     public User() {
