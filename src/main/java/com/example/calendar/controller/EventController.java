@@ -3,6 +3,9 @@ package com.example.calendar.controller;
 import com.example.calendar.model.dto.EventDTO;
 import com.example.calendar.model.dto.NoteDTO;
 import com.example.calendar.service.EventService;
+import com.example.calendar.service.email.EmailService;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ import java.util.Objects;
 public class EventController {
     @Resource
     private EventService eventService;
+
+    @Resource
+    private EmailService emailService;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody EventDTO eventDto) {
@@ -66,6 +72,12 @@ public class EventController {
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
         return new ResponseEntity<>(eventService.findById(id), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/emailTester")
+    public ResponseEntity<?> sendEmail(){
+        emailService.sendSimpleMessage("amos.andreica@gmail.com", "Salut", "Salut, acesta este un test");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
