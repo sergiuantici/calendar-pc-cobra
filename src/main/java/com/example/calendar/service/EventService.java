@@ -34,7 +34,8 @@ public class EventService {
         this.dateUtils = dateUtils;
     }
 
-    public Event save(Event event) {
+    public Event save(EventDTO eventDto) {
+        Event event=fromDtoToModel(eventDto);
         eventPublisher.publishEvent(new NotificationEvent(event, NotificationEventType.NEW));
         return eventRepository.save(event);
 
