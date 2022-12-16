@@ -43,6 +43,7 @@ public class EventService {
         event.setDescription(eventDto.getDescription());
         return event;
     }
+
     private Event fromDtoToModel2(EventDTO eventDto) {
         Event event = new Event();
         event.setId(eventDto.getId());
@@ -60,19 +61,20 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public List<EventDTO> findByMonthAndYear(Integer month, Integer year) {
-        return eventRepository.getEventsByMonthAndYear(month, year);
+    public List<EventDTO> findByMonthAndYear(Integer month, Integer year, String username) {
+        return eventRepository.getEventsByMonthAndYear(month, year, username);
     }
 
-    public List<EventDTO> findByDayAndMonthAndYear(Integer day, Integer month, Integer year) {
-        return eventRepository.getEventsByDayAndMonthAndYear(day, month, year);
+    public List<EventDTO> findByDayAndMonthAndYear(Integer day, Integer month, Integer year, String username) {
+        User user = new User(username);
+        return eventRepository.getEventsByDayAndMonthAndYear(day, month, year, user);
     }
 
-    public Map<Integer, List<EventDTO>> findByMonthAndYearGroupedByDay(Integer month, Integer year) {
+    public Map<Integer, List<EventDTO>> findByMonthAndYearGroupedByDay(Integer month, Integer year, String username) {
         Map<Integer, List<EventDTO>> eventsPerDay = new HashMap<>();
         List<Integer> allDaysFromMonth = dateUtils.getAllDaysFromMonth(month, year);
         allDaysFromMonth.forEach(dayOfMonth -> {
-            eventsPerDay.put(dayOfMonth, findByDayAndMonthAndYear(dayOfMonth, month, year));
+            eventsPerDay.put(dayOfMonth, findByDayAndMonthAndYear(dayOfMonth, month, year, username));
         });
         return eventsPerDay;
 

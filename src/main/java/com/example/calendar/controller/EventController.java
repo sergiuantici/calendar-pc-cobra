@@ -46,19 +46,19 @@ public class EventController {
         return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
-    @GetMapping("/by-month-year")
-    public ResponseEntity<?> getAllByMonthAndYear(@RequestParam("month") Integer month, @RequestParam("year") Integer year) {
-        return new ResponseEntity<>(eventService.findByMonthAndYearGroupedByDay(month, year), HttpStatus.OK);
+    @GetMapping("/by-month-year/{username}")
+    public ResponseEntity<?> getAllByMonthAndYear(@RequestParam("month") Integer month, @RequestParam("year") Integer year,@PathVariable("username") String username) {
+        return new ResponseEntity<>(eventService.findByMonthAndYearGroupedByDay(month, year,username), HttpStatus.OK);
     }
 
-    @GetMapping("/by-day")
-    public ResponseEntity<?> getAllByDayAndMonthAndYear(@RequestParam("day") Integer day, @RequestParam("month") Integer month, @RequestParam("year") Integer year) {
+    @GetMapping("/by-day/{username}")
+    public ResponseEntity<?> getAllByDayAndMonthAndYear(@RequestParam("day") Integer day, @RequestParam("month") Integer month, @RequestParam("year") Integer year,@PathVariable("username") String username) {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new ResponseEntity<>(eventService.findByDayAndMonthAndYear(day, month, year), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.findByDayAndMonthAndYear(day, month, year,username), HttpStatus.OK);
     }
 
 

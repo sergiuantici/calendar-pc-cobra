@@ -1,11 +1,14 @@
 package com.example.calendar.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventDTO {
     private Long id;
     private String name;
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     private List<String> notes;
 
     public String getUsername() {
@@ -39,13 +42,17 @@ public class EventDTO {
     private String startTime;
     private String endTime;
     private String description;
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     private String username;
     private LocalDateTime date;
 
-    public EventDTO(Long id, String name, LocalDateTime date) {
+    public EventDTO(Long id, String name, LocalDateTime date,String startTime,String endTime,String description) {
         this.id = id;
         this.name = name;
         this.date = date;
+        this.startTime=startTime;
+        this.endTime=endTime;
+        this.description=description;
     }
 
     public List<String> getNotes() {
