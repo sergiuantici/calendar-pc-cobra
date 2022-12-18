@@ -1,7 +1,12 @@
 package com.example.calendar.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -12,6 +17,26 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+
+    @OneToMany(mappedBy="user",fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Event> events;
+
+    public User() {
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public User setEvents(List<Event> events) {
+        this.events = events;
+        return this;
+    }
 
     public String getUsername() {
         return username;

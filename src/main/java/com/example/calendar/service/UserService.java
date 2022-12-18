@@ -7,6 +7,7 @@ import com.example.calendar.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -14,9 +15,12 @@ public class UserService {
     private UserRepository userRepository;
 
     public String checkCredentials(UserDTO userDTO) {
-        User user = userRepository.getById(userDTO.getUsername());
-        if (user.getPassword().equals(userDTO.getPassword())) {
-            return user.getUsername();
+        Optional<User> user = userRepository.getUserByUsername(userDTO.getUsername());
+        if (user.isEmpty()){
+            return null;
+        }
+        if (user.get().getPassword().equals(userDTO.getPassword())) {
+            return user.get().getUsername();
         }
         return null;
     }
