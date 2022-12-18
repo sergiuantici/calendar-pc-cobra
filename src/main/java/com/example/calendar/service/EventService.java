@@ -35,37 +35,14 @@ public class EventService {
     }
 
     public Event save(EventDTO eventDto) {
-        Event event=fromDtoToModel(eventDto);
+        Event event = fromDtoToModelToSave(eventDto);
         eventPublisher.publishEvent(new NotificationEvent(event, NotificationEventType.NEW));
         return eventRepository.save(event);
-
     }
-
-    private Event fromDtoToModel(EventDTO eventDto) {
-        Event event = new Event();
-        event.setUser(new User(eventDto.getUsername()));
-        event.setEndTime(eventDto.getEndTime());
-        event.setStartTime(eventDto.getStartTime());
-        event.setNotes(eventDto.getNotes());
-        event.setDate(eventDto.getDate());
-        event.setName(eventDto.getName());
-        event.setDescription(eventDto.getDescription());
-        return event;
+    public Event update(EventDTO eventDto) {
+        Event event = fromDtoToModelToUpdate(eventDto);
+        return eventRepository.save(event);
     }
-
-    private Event fromDtoToModel2(EventDTO eventDto) {
-        Event event = new Event();
-        event.setId(eventDto.getId());
-        event.setUser(new User(eventDto.getUsername()));
-        event.setEndTime(eventDto.getEndTime());
-        event.setStartTime(eventDto.getStartTime());
-        event.setNotes(eventDto.getNotes());
-        event.setDate(eventDto.getDate());
-        event.setName(eventDto.getName());
-        event.setDescription(eventDto.getDescription());
-        return event;
-    }
-
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
@@ -86,7 +63,6 @@ public class EventService {
             eventsPerDay.put(dayOfMonth, findByDayAndMonthAndYear(dayOfMonth, month, year, username));
         });
         return eventsPerDay;
-
     }
 
     public Event findById(Long id) {
@@ -102,7 +78,6 @@ public class EventService {
     }
 
     public boolean verifyUser(EventDTO eventDto) {
-
         return userRepository.existsByUsername(eventDto.getUsername());
     }
 
@@ -126,9 +101,29 @@ public class EventService {
         return eventRepository.findByUser(new User(username));
     }
 
-    public Event update(EventDTO eventDto) {
-        Event event = fromDtoToModel2(eventDto);
-        return eventRepository.save(event);
-
+    private Event fromDtoToModelToSave(EventDTO eventDto) {
+        Event event = new Event();
+        event.setUser(new User(eventDto.getUsername()));
+        event.setEndTime(eventDto.getEndTime());
+        event.setStartTime(eventDto.getStartTime());
+        event.setNotes(eventDto.getNotes());
+        event.setDate(eventDto.getDate());
+        event.setName(eventDto.getName());
+        event.setDescription(eventDto.getDescription());
+        return event;
     }
+
+    private Event fromDtoToModelToUpdate(EventDTO eventDto) {
+        Event event = new Event();
+        event.setId(eventDto.getId());
+        event.setUser(new User(eventDto.getUsername()));
+        event.setEndTime(eventDto.getEndTime());
+        event.setStartTime(eventDto.getStartTime());
+        event.setNotes(eventDto.getNotes());
+        event.setDate(eventDto.getDate());
+        event.setName(eventDto.getName());
+        event.setDescription(eventDto.getDescription());
+        return event;
+    }
+
 }
