@@ -36,7 +36,7 @@ public class LoginController {
     public ResponseEntity<?> register(@RequestBody RegisterUserDTO registerUserDTO){
         User user = userService.addUser(registerUserDTO);
         if(user == null){
-            return new ResponseEntity<>("Invalid user details!", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Duplicated email address!", HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

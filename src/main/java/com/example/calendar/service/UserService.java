@@ -26,6 +26,10 @@ public class UserService {
     }
 
     public User addUser(RegisterUserDTO registerUserDTO) {
+        Optional<User> user = userRepository.getUserByUsername(registerUserDTO.getUsername());
+        if (user.isPresent()){
+            return null;
+        }
         return userRepository.save(convertRegisterToUser(registerUserDTO));
     }
 
