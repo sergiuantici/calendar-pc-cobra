@@ -2,10 +2,10 @@ package com.example.calendar.Utils;
 
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.TemporalAdjuster;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +17,11 @@ import static java.util.Calendar.DAY_OF_MONTH;
 @Service
 public class DateUtils {
 
+
+    public String getStringDate(LocalDateTime date, String dateTimeFormat){
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(dateTimeFormat);
+        return dateFormat.format(date);
+    }
 
     public Date getFirstDayOfTheMonth(Integer month, Integer year) {
         LocalDate date = LocalDate.of(year, month, 1);
