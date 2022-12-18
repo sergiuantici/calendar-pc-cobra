@@ -1,5 +1,6 @@
 package com.example.calendar.service.email.impl;
 
+import com.example.calendar.Utils.DateUtils;
 import com.example.calendar.model.Event;
 import com.example.calendar.notification.NotificationEvent;
 import com.example.calendar.notification.NotificationEventType;
@@ -25,15 +26,19 @@ public class DefaultNotificationService implements NotificationService {
     @Resource
     private EventService eventService;
 
+    @Resource
+    private DateUtils dateUtils;
+
+    private final String DATE_TIME_PATTERN = "yyyy-MM-dd";
     @Override
     public void sendNewEventNotification(Event event) {
         String subject = "You have a new event";
         String text = "A new event was created. \n";
         text = text + event.getName() + " event was created.\n";
         text = text + event.getDescription() + "\n";
-        text = text + "Date of the event: " + event.getDate() + "\n";
-        String to = "amos.andreica@gmail.com";
-        //String to = event.getEvent().getEmail();
+        text = text + "Date of the event: " + dateUtils.getStringDate(event.getDate(), DATE_TIME_PATTERN) + "\n";
+//        String to = "amos.andreica@gmail.com";
+        String to = event.getUser().getUsername();
 
         emailService.sendSimpleMessage(to, subject, text);
     }

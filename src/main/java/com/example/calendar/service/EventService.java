@@ -100,7 +100,6 @@ public class EventService {
     public ArrayList<Event> findAllByUser(String username) {
         return eventRepository.findByUser(new User(username));
     }
-
     private Event fromDtoToModelToSave(EventDTO eventDto) {
         Event event = new Event();
         event.setUser(new User(eventDto.getUsername()));
