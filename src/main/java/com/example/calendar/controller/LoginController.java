@@ -38,7 +38,7 @@ public class LoginController {
         if(user == null){
             return new ResponseEntity<>("Duplicated email address!", HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
 }

@@ -30,7 +30,7 @@ public class EventController {
         boolean real = eventService.verifyUser(eventDto);
         if (!real)
             return new ResponseEntity<>("Not correct username", HttpStatus.FORBIDDEN);
-        return new ResponseEntity<>(eventService.save(eventDto), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.save(eventDto), HttpStatus.CREATED);
     }
     @PutMapping
     public ResponseEntity<?> update(@RequestBody EventDTO eventDto) {
@@ -49,7 +49,7 @@ public class EventController {
         String note = eventService.addNote(noteDto);
         if (Objects.equals(note, ""))
             return new ResponseEntity<>("Event doesnt exist", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(note, HttpStatus.OK);
+        return new ResponseEntity<>(note, HttpStatus.CREATED);
     }
 
     @GetMapping("/by-month-year/{username}")
