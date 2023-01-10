@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("select new com.example.calendar.model.dto.EventDTO(e.id, e.name, e.date,e.startTime," +
-            "e.endTime,e.description)"+
+            "e.endTime,e.description,e.latitude,e.longitude)"+
             "from Event e " +
             "where year(e.date) = :year " +
             "and month(e.date) = :month " +
@@ -25,7 +25,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "order by e.date " )
     List<EventDTO> getEventsByMonthAndYear(@Param("month") Integer month, @Param("year") Integer year,@Param ("user") String user);
 
-    @Query("select new com.example.calendar.model.dto.EventDTO(e.id, e.name, e.date,e.startTime,e.endTime,e.description) " +
+    @Query("select new com.example.calendar.model.dto.EventDTO(e.id, e.name, e.date,e.startTime,e.endTime,e.description,e.latitude,e.longitude) " +
             "from Event e " +
             "where year(e.date) = :year " +
             "and month(e.date) = :month " +

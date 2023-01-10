@@ -1,8 +1,6 @@
 package com.example.calendar.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,6 +20,9 @@ public class Event {
     private String startTime;
     private String endTime;
     private LocalDateTime date;
+    private Double latitude;
+    private Double longitude;
+
 
     @ManyToOne
     @JoinColumn(name="userId", nullable=false)
@@ -35,6 +36,22 @@ public class Event {
     public Event setUser(User user) {
         this.user = user;
         return this;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     @ElementCollection

@@ -45,14 +45,17 @@ public class EventDTO {
     @JsonInclude(JsonInclude.Include. NON_NULL)
     private String username;
     private LocalDateTime date;
-
-    public EventDTO(Long id, String name, LocalDateTime date,String startTime,String endTime,String description) {
+    private Double latitude;
+    private Double longitude;
+    public EventDTO(Long id, String name, LocalDateTime date,String startTime,String endTime,String description,Double latitude,Double longitude) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.startTime=startTime;
         this.endTime=endTime;
         this.description=description;
+        this.latitude=latitude;
+        this.longitude=longitude;
     }
 
     public List<String> getNotes() {
@@ -62,6 +65,22 @@ public class EventDTO {
     public EventDTO setNotes(List<String> notes) {
         this.notes = notes;
         return this;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public EventDTO setUsername(String username) {

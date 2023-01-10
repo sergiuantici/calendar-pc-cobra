@@ -109,6 +109,8 @@ public class EventService {
         event.setDate(eventDto.getDate());
         event.setName(eventDto.getName());
         event.setDescription(eventDto.getDescription());
+        event.setLatitude(eventDto.getLatitude());
+        event.setLongitude(eventDto.getLongitude());
         return event;
     }
 
@@ -122,6 +124,8 @@ public class EventService {
         event.setDate(eventDto.getDate());
         event.setName(eventDto.getName());
         event.setDescription(eventDto.getDescription());
+        event.setLatitude(eventDto.getLatitude());
+        event.setLongitude(eventDto.getLongitude());
         return event;
     }
 
