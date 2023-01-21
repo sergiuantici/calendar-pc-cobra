@@ -37,7 +37,6 @@ public class DefaultNotificationService implements NotificationService {
         text = text + event.getName() + " event was created.\n";
         text = text + event.getDescription() + "\n";
         text = text + "Date of the event: " + dateUtils.getStringDate(event.getDate(), DATE_TIME_PATTERN) + "\n";
-//        String to = "amos.andreica@gmail.com";
         String to = event.getUser().getUsername();
 
         emailService.sendSimpleMessage(to, subject, text);
@@ -49,15 +48,14 @@ public class DefaultNotificationService implements NotificationService {
         String text = "You have an upcoming event. \n";
         text = text + event.getName() + " event is coming.\n";
         text = text + event.getDescription() + "\n";
-        text = text + "Date of the event: " + event.getDate() + "\n";
-        String to = "amos.andreica@gmail.com";
-        //String to = event.getEvent().getEmail();
+        text = text + "Date of the event: " + dateUtils.getStringDate(event.getDate(), DATE_TIME_PATTERN) + "\n";
+        String to = event.getUser().getUsername();
 
         emailService.sendSimpleMessage(to, subject, text);
     }
 
     @Async
-    @Scheduled(cron = "0 47 18 * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void sendRemindersTask() {
         List<Event> upcomingEvents = eventService.getUpcomingEvents();
         upcomingEvents
